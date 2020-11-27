@@ -1,15 +1,19 @@
 resource "gsuite_group" "a_team" {
-  email       = "${var.group_email}@${var.org_domain_name}"
-  name        = "${var.group_email}@${var.org_domain_name}"
-  description = "team for ${var.group_email}"
+  email       = "${var.name}@${var.org_domain_name}"
+  name        = "${var.name}@${var.org_domain_name}"
+  description = "terraform managed group"
 }
 
 resource "gsuite_group_members" "a_team_members" {
   group_email = gsuite_group.a_team.email
 
-  member {
-    email = var.owner_email
-    role  = "OWNER"
+  dynamic "member" {
+    for_each = var.owners
+
+    content {
+      email = member.value
+      role  = "OWNER"
+    }
   }
 
   # womp

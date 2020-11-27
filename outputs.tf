@@ -1,3 +1,3 @@
-output "group_email" {
+output "email" {
   value = gsuite_group.a_team.email
 }
