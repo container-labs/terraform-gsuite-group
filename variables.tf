@@ -7,7 +7,7 @@ variable "org_domain_name" {
 }
 
 variable "members" {
-  type = list
+  type = list(any)
 }
 
 variable "owner_email" {
